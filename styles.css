@@ -1,0 +1,77 @@
+.quest-link-badge {
+  opacity: 0.8;
+  font-size: 0.8em;
+  margin-left: 0.25em;
+}
+
+.quest-modal-buttons {
+  margin-top: 1em;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.quest-link-badge {
+  opacity: 0.8;
+  font-size: 0.8em;
+  margin-left: 0.25em;
+}
+
+.quest-modal-buttons {
+  margin-top: 1em;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Level progression bar */
+.oq-progress {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  background-color: var(--background-modifier-border);
+  overflow: hidden;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.oq-progress-inner {
+  height: 100%;
+  border-radius: 999px;
+  background-color: var(--text-accent);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* Settings textarea for rewards */
+.oq-rewards-textarea {
+  width: 100%;
+  min-height: 80px;
+  font-family: var(--font-interface);
+  font-size: var(--font-ui-small);
+}
+
+.oq-pagination {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.oq-pagination button {
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--background-modifier-border);
+  background-color: var(--background-secondary);
+  cursor: pointer;
+  font-size: 0.85em;
+}
+
+.oq-pagination button:hover {
+  background-color: var(--background-modifier-hover);
+}
+
+.oq-page-display {
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+

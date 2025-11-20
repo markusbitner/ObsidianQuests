@@ -1,0 +1,10 @@
+{
+  "id": "obsidian-quests",
+  "name": "Obsidian Quests",
+  "version": "0.2.0",
+  "minAppVersion": "1.4.0",
+  "description": "Create quests, track XP and levels with a customizable level curve, and decorate quest links.",
+  "author": "Markus Bitner",
+  "authorUrl": "mailto:markus@markusbitner.com",
+  "isDesktopOnly": false
+}

@@ -305,7 +305,6 @@ module.exports = class ObsidianQuestsPlugin extends Plugin {
       this.settings.lastLevelPage = 1;
     }
 
-    this.statusUpdateTimeout = null;
     this.levelPage = null; // in-memory current page
 
     // Ribbon icon
@@ -323,10 +322,18 @@ module.exports = class ObsidianQuestsPlugin extends Plugin {
       this.decorateQuestLinks(el, ctx);
     });
 
-    // Global click handler for pagination buttons
+    // Global click handler for pagination + recalc buttons
     this.registerDomEvent(document, "click", (evt) => {
       const target = evt.target;
       if (!(target instanceof HTMLElement)) return;
+
+      const recalcBtn = target.closest(".oq-recalc-xp");
+      if (recalcBtn) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        this.recomputePlayerStatusNote().catch(console.error);
+        return;
+      }
 
       const prevBtn = target.closest(".oq-page-prev");
       const nextBtn = target.closest(".oq-page-next");
@@ -339,19 +346,8 @@ module.exports = class ObsidianQuestsPlugin extends Plugin {
       this.changeLevelPage(delta).catch(console.error);
     });
 
-    // XP recompute on metadata change, debounced to 5s
-    this.registerEvent(
-      this.app.metadataCache.on("changed", () => {
-        if (this.statusUpdateTimeout != null) {
-          window.clearTimeout(this.statusUpdateTimeout);
-        }
-        this.statusUpdateTimeout = window.setTimeout(() => {
-          this.recomputePlayerStatusNote().catch(console.error);
-        }, 5000);
-      })
-    );
-
-    // Initial compute
+    // No automatic recompute on metadata changes anymore.
+    // Only initial compute + manual recalc button.
     this.recomputePlayerStatusNote().catch(console.error);
   }
 
@@ -690,6 +686,8 @@ module.exports = class ObsidianQuestsPlugin extends Plugin {
       "</div>",
       "",
       `_${progress.currentLevelXp} / ${progress.xpForNextLevel} XP towards next level_`,
+      "",
+      '<button class="oq-recalc-xp">Recalculate XP</button>',
       "",
       "## Progression",
       "",
